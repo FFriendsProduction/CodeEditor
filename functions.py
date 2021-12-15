@@ -1,11 +1,12 @@
 def auto_complete(window):
-    try:
-        li = ["("]
-        if window["-CODE-"].get()[-1] in li:
-            window["-CODE-"].update(")", append = True)
-        
-    except:
-        print("auto_complete")
+    if len(window["-CODE-"].get()) > 0 :
+        try:
+            li = ["("]
+            if window["-CODE-"].get()[-1] in li:
+                window["-CODE-"].update(")", append = True)
+            
+        except:
+            print("auto_complete")
 
 def after_colon(keyboard):
     keyboard.send("enter")
@@ -25,7 +26,16 @@ def open_file(window, sg, askopenfilename):
     except:
         sg.popup("Somethings went wrong", title = "Error")
 
+def copy(window):
+    window["-OUT-"].update(window["-CODE-"].get())
 
+def open_from_box(window, values):
+    try:
+        with open(values["-BOX-"][0], "r") as input_file:
+            text = input_file.read()
+            window["-CODE-"].update(text)
+    except:
+        print("open_from_box")
 # def dosya_kaydet():
 #     """Save the current file as a new file."""
 #     filepath = asksaveasfilename(
